@@ -4,7 +4,7 @@
  3、更正了上一版有漏解压的bug  
  4、屏幕上没有不相关信息  
  5、查找无exe和msi的压缩包，并记录在txt文件  
- # 注意事项
+# 注意事项
 本次脚本运行环境为python3且需要unrar模块的支持！！！   
 另外，除了在python中安装unrar，Windows下安装也需要安装unrar，具体方法如下：   
 1. 先到RARLab官方下载库文件，http://www.rarlab.com/rar/UnRARDLL.exe ，然后安装；   
