@@ -1,14 +1,10 @@
-# 版本功能：
-# 1、不需要手动replace
-# 2、自动跳过需要密码的压缩包，和损坏的压缩包，并记录在txt文件
-# 3、更正了上一版有漏解压的bug
-# 4、屏幕上没有不相关信息
-# 5、查找无exe和msi的压缩包，并记录在txt文件
-
+# -*- coding: utf-8 -*-
 import os
 import zipfile
 import shutil
 from unrar import rarfile
+import stat
+
 print ('脚本运行环境是python3，且需要unrar模块的支持！安装过程参照txt文档！')
 print('''
 # 版本功能：
@@ -32,6 +28,7 @@ for file in list:
     # 删除所有已经解压的文件，重新解压
     for name in file_name_list:
         if not name.endswith(".zip"):
+            os.chmod(name, stat.S_IWRITE)
             try:
                 os.remove(name)
             except:
@@ -41,7 +38,13 @@ for file in list:
                     print("删除文件或文件夹失败！！该文件夹是： ",file)
     namelist = []
     flag=1#为跳出两层压缩包所设
-    zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), os.listdir(os.getcwd())[0]))
+    try:
+        zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), os.listdir(os.getcwd())[0]))
+    except:
+        document.write(file+'\n')
+        print(file,":解压错误，需要密码或者是压缩包损坏!")
+        os.chdir(r'..')
+        continue
     # 解决乱码的问题
     for file_inzip in zipFile.namelist():
         try:
@@ -62,7 +65,11 @@ for file in list:
         continue
     # 进行文件的重命名
     for i in range(len(namelist)):
-        os.renames(zipFile.namelist()[i], namelist[i])
+        try:
+            
+            os.renames(zipFile.namelist()[i],namelist[i])
+        except:
+            pass
     # 搜寻无exe和msi的文件夹
     fflag=0
     for find_exe_mis in namelist:
@@ -74,12 +81,6 @@ for file in list:
     zipFile.close()
     print(file, "：解压成功！")
     os.chdir(r'..')
-
-
-
-
-
-
 # rar解压
 os.chdir(path_name1)
 list = os.listdir(path_name1)
