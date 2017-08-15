@@ -28,7 +28,6 @@ for file in list:
     os.chdir(r'./'+file)
     file_name_list=os.listdir(os.getcwd())
     # 删除所有已经解压的文件，重新解压
-    Flag=1
     for name in file_name_list:
         if  name.endswith(".zip"):
             zip_name=name
