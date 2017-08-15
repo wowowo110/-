@@ -1,10 +1,10 @@
-## 版本特性：
+### 版本特性：
 * 不需要手动replace   
 * 自动跳过需要密码的压缩包，和损坏的压缩包，并记录在txt文件   
 * 更正了上一版有漏解压的bug   
 * 屏幕上没有不相关信息   
 * 查找无exe和msi的压缩包，并记录在txt文件（在脚本所在位置）  
-## 注意事项
+### 注意事项
 本次脚本运行环境为python3且需要unrar模块的支持！！！   
 另外，除了在python中安装unrar，Windows下安装也需要安装unrar，具体方法如下:    
 1. 先到RARLab官方下载库文件，http://www.rarlab.com/rar/UnRARDLL.exe ，然后安装；   
