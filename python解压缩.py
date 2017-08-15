@@ -20,6 +20,8 @@ document1=open("无msi和exe文件记录.txt", "w+")
 # zip文件解压
 path_name=input("输入待解压的zip文件名称：\nG:\工作\工作原始文件\图像捕捉1\图像捕捉所有zip文件夹\n")
 path_name1=input("\n输入待解压rar文件夹名称：\n")
+#path_name=r'F:\python自动解压脚本\待解压zip文件'
+#path_name1=r'F:\python自动解压脚本\待解压rar文件'
 os.chdir(path_name)
 list = os.listdir(path_name)
 for file in list:
@@ -65,11 +67,9 @@ for file in list:
         continue
     # 进行文件的重命名
     for i in range(len(namelist)):
-        try:
-            
-            os.renames(zipFile.namelist()[i],namelist[i])
-        except:
-            pass
+        j=len(namelist)-i-1
+        if os.path.isdir(zipFile.namelist()[j]) or os.path.isfile(zipFile.namelist()[j]):
+            os.renames(zipFile.namelist()[j],namelist[j])
     # 搜寻无exe和msi的文件夹
     fflag=0
     for find_exe_mis in namelist:
