@@ -28,20 +28,16 @@ for file in list:
     os.chdir(r'./'+file)
     file_name_list=os.listdir(os.getcwd())
     # 删除所有已经解压的文件，重新解压
+    Flag=1
     for name in file_name_list:
-        if not name.endswith(".zip"):
-            os.chmod(name, stat.S_IWRITE)
-            try:
-                os.remove(name)
-            except:
-                try:
-                    shutil.rmtree(name)
-                except:
-                    print("删除文件或文件夹失败！！该文件夹是： ",file)
+        if  name.endswith(".zip"):
+            zip_name=name
+            break
+
     namelist = []
     flag=1#为跳出两层压缩包所设
     try:
-        zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), os.listdir(os.getcwd())[0]))
+        zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), os.listdir(zip_name)))
     except:
         document.write(file+'\n')
         print(file,":解压错误，需要密码或者是压缩包损坏!")
@@ -69,7 +65,10 @@ for file in list:
     for i in range(len(namelist)):
         j=len(namelist)-i-1
         if os.path.isdir(zipFile.namelist()[j]) or os.path.isfile(zipFile.namelist()[j]):
-            os.renames(zipFile.namelist()[j],namelist[j])
+            try:
+                os.renames(zipFile.namelist()[j], namelist[j])
+            except:
+                pass
     # 搜寻无exe和msi的文件夹
     fflag=0
     for find_exe_mis in namelist:
@@ -89,16 +88,11 @@ for file in list:
     file_name_list=os.listdir(os.getcwd())
     # 删除所有已经解压的文件，重新解压
     for name in file_name_list:
-        if not name.endswith(".rar"):
-            try:
-                os.remove(name)
-            except:
-                try:
-                    shutil.rmtree(name)
-                except:
-                    print("删除文件或文件夹失败！！该文件夹是： ",file)
+        if  name.endswith(".rar"):
+            rar_name = name
+            break
     try:
-        file_inrar = rarfile.RarFile(os.listdir(os.getcwd())[0])  # 这里写入的是需要解压的文件，别忘了加路径
+        file_inrar = rarfile.RarFile(rar_name)  # 这里写入的是需要解压的文件，别忘了加路径
         file_inrar.extractall()  # 这里写入的是你想要解压到的文件夹
     except:
         print(file, ":解压错误,需要密码或者是压缩包损坏!")
