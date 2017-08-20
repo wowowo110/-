@@ -36,7 +36,7 @@ for file in list:
     namelist = []
     flag=1#为跳出两层压缩包所设
     try:
-        zipFile = zipfile.ZipFile(os.path.join(os.getcwd(), os.listdir(zip_name)))
+        zipFile = zipfile.ZipFile(zip_name)
     except:
         document.write(file+'\n')
         print(file,":解压错误，需要密码或者是压缩包损坏!")
